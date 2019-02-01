@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Práctica UT06 BOM</title>
+  <meta charset="UTF-8">
+	<meta name="author" content="Guillermo Rodriguez Moraga">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+	<link rel="stylesheet" href="../css/mi_css.css">
+</head>
+<body>
+  <!-- Cabecera -->
+  <header class="container-fluid">
+    <!-- MENU HORIZONTAL -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">GUIROMO <small>CHANNEL</small></a>
+        </div>
+      </nav>
+    <!-- FIN MENU HORIZONTAL -->
+  </header>
+  <!-- COMIENZO CONTENIDO PRINCIPAL -->
+  <main class="container">
+      <div class="col-md-9">
+            <h1 id="tituloZona"></h1>
+            <div id="contenidoZona">
+                <!-- AQUI SE MUESTRA TODA LA INFORMACION DEL RECURSO -->   
+            </div>   
+      </div>
+  </main>
+  <!-- FIN CONTENIDO PRINCIPAL -->
+  <script>
+    //Llama a la funcion showResource de la ventana padre
+    window.onload = window.opener.showResource;
+  </script>
+  </body>
+</html>
