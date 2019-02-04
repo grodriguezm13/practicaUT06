@@ -76,10 +76,10 @@ function initPopulate(){
 	}
 	//Se crean los objetos Serie
 	try {
-		var serie = new Serie("El Mago Invisible visible","Francesa",new Date(2010,05,05),"Un mago se cree invisible pero no lo es","http://www.guiromo.es/resource6",[season,season1]);
-		var serie1 = new Serie("Juego de Gnomos","Americana",new Date(2016,05,05),"Movidas raras","http://www.guiromo.es/resource21",[season,season1,season2]);
-		var serie2 = new Serie("The Flash","Americana",new Date(2014,05,05),"Barry Allen obtiene supervelocidad en una accidente, pero no es el unico","http://www.guiromo.es/resource21",[season,season1,season2]);
-		var serie3 = new Serie("El bisonte","Rusa",new Date(2010,05,05),"Un bisonte con un don para el canto","http://www.guiromo.es/resource21",[season,season1,season2]);
+		var serie = new Serie("El Mago Invisible visible",new Date(2010,05,05),"Francesa","Un mago se cree invisible pero no lo es","http://www.guiromo.es/resource6",[season,season1]);
+		var serie1 = new Serie("Juego de Gnomos",new Date(2016,05,05),"Americana","Movidas raras","http://www.guiromo.es/resource21",[season,season1,season2]);
+		var serie2 = new Serie("The Flash",new Date(2014,05,05),"Americana","Barry Allen obtiene supervelocidad en una accidente, pero no es el unico","http://www.guiromo.es/resource21",[season,season1,season2]);
+		var serie3 = new Serie("El bisonte",new Date(2010,05,05),"Rusa","Un bisonte con un don para el canto","http://www.guiromo.es/resource21",[season,season1,season2]);
 	} catch (error) {
 		console.log("" + error);
 	}
@@ -210,22 +210,73 @@ function initPopulate(){
 
 }//Fin de initPopulate
 
-//Carga las tarjetas de la pagina de inicio con las categorias
-function showHomePage(){
-	//Selecciona el titulo central y le cambia el nombre
-	var tituloContenido = document.getElementById("tituloZona");
-	tituloContenido.innerHTML = "Categorias del sistema";
+//Funcion que actualiza las migas de pan
+function breadcrumb(lugar, anterior, valor){
 
 	//Selecciona la zona de las migas de pan y quita el contenido para añadir el nuevo
 	var migas = document.getElementById("breadcrumb");
 	while (migas.firstChild) {
 		migas.removeChild(migas.firstChild);
 	}
-	var inicio = document.createElement("li");
-	inicio.setAttribute("class","breadcrumb-item btn btn-sm active");
-	inicio.setAttribute("aria-current","page");
-	inicio.appendChild(document.createTextNode("Inicio"));
-	migas.appendChild(inicio);
+	if (lugar == "Inicio") {
+		var inicio = document.createElement("li");
+		inicio.setAttribute("class","breadcrumb-item btn btn-sm active");
+		inicio.appendChild(document.createTextNode(valor));
+		migas.appendChild(inicio);
+	}else if ((lugar == "Actores") || (lugar == "Directores") || (lugar == "Producciones")) {
+		var inicio = document.createElement("li");
+		var enlaceInicio = document.createElement("button");
+		inicio.setAttribute("class","breadcrumb-item ");
+		enlaceInicio.appendChild(document.createTextNode("Inicio"));
+		enlaceInicio.setAttribute("class","btn btn-link btn-sm");
+		enlaceInicio.addEventListener("click",showHomePage);
+		inicio.appendChild(enlaceInicio);
+		migas.appendChild(inicio);
+		var actual = document.createElement("li");
+		actual.setAttribute("class","breadcrumb-item btn btn-sm active");
+		actual.appendChild(document.createTextNode(valor));
+		migas.appendChild(actual);
+	}else {
+		var inicio = document.createElement("li");
+		var enlaceInicio = document.createElement("button");
+		inicio.setAttribute("class","breadcrumb-item ");
+		enlaceInicio.appendChild(document.createTextNode("Inicio"));
+		enlaceInicio.setAttribute("class","btn btn-link btn-sm");
+		enlaceInicio.addEventListener("click",showHomePage);
+		inicio.appendChild(enlaceInicio);
+		migas.appendChild(inicio);
+		var ultimo = document.createElement("li");
+		var enlaceUltimo = document.createElement("button");
+		ultimo.setAttribute("class","breadcrumb-item ");
+		enlaceUltimo.appendChild(document.createTextNode(anterior));
+		enlaceUltimo.setAttribute("class","btn btn-link btn-sm");
+		enlaceUltimo.setAttribute("value",anterior);
+		if (lugar == "Produccion") {
+			enlaceUltimo.addEventListener("click",showProductions);
+		}else if(lugar == "Actor"){
+			enlaceUltimo.addEventListener("click",showActors);
+		}else{
+			enlaceUltimo.addEventListener("click",showDirectors);
+		}
+		ultimo.appendChild(enlaceUltimo);
+		migas.appendChild(ultimo);
+		var actual = document.createElement("li");
+		actual.setAttribute("class","breadcrumb-item btn btn-sm active");
+		actual.setAttribute("aria-current","page");
+		actual.appendChild(document.createTextNode(valor));
+		migas.appendChild(actual);
+	}
+	
+}//Fin de breadcrumb
+
+//Carga las tarjetas de la pagina de inicio con las categorias
+function showHomePage(){
+	//Selecciona el titulo central y le cambia el nombre
+	var tituloContenido = document.getElementById("tituloZona");
+	tituloContenido.innerHTML = "Categorias del sistema";
+
+	//Actualiza las migas de pan
+	breadcrumb("Inicio",null,"Inicio");
 
 	//Selecciona la zona central donde van las tarjetas de las categorias
 	var tarjetas = document.getElementById("tarjetasZona");
@@ -328,24 +379,8 @@ function showActors(){
 	//El valor this.value lo recoge del valor del boton que hayamos pulsado
 	tituloContenido.innerHTML = "Actores del sistema";
 
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode("Actores"));
-	migas.appendChild(actual);
+	//Actualiza las migas de pan
+	breadcrumb("Actores",null,"Actores");
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -419,24 +454,8 @@ function showDirectors(){
 	//El valor this.value lo recoge del valor del boton que hayamos pulsado
 	tituloContenido.innerHTML = "Directores del sistema";
 
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode("Directores"));
-	migas.appendChild(actual);
+	//Actualiza las migas de pan
+	breadcrumb("Directores",null,"Directores");
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -508,32 +527,8 @@ function showActor(){
 	var tituloContenido = document.getElementById("tituloZona");
 	tituloContenido.innerHTML = this.value;
 
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var ultimo = document.createElement("li");
-	var enlaceUltimo = document.createElement("button");
-	ultimo.setAttribute("class","breadcrumb-item ");
-	enlaceUltimo.appendChild(document.createTextNode("Actores"));
-	enlaceUltimo.setAttribute("class","btn btn-link btn-sm");
-	enlaceUltimo.addEventListener("click",showActors);
-	ultimo.appendChild(enlaceUltimo);
-	migas.appendChild(ultimo);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode(this.value));
-	migas.appendChild(actual);
+	//Actualiza las migas de pan
+	breadcrumb("Actor","Actores",this.value);
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -583,7 +578,7 @@ function showActor(){
 			nacimiento.appendChild(document.createTextNode("Fecha de nacimiento:"));
 			var nacimientoDescript = document.createElement("p");
 			nacimientoDescript.setAttribute("class","card-text cajaDescripcion");
-			nacimientoDescript.appendChild(document.createTextNode(actor.value.born));			
+			nacimientoDescript.appendChild(document.createTextNode(actor.value.born.toDateString()));			
 			
 			//Se crea la estructura de las tarjetas con appendChild
 			contenido.appendChild(tarjeta);
@@ -632,32 +627,8 @@ function showDirector(){
 	var tituloContenido = document.getElementById("tituloZona");
 	tituloContenido.innerHTML = this.value;
 
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var ultimo = document.createElement("li");
-	var enlaceUltimo = document.createElement("button");
-	ultimo.setAttribute("class","breadcrumb-item ");
-	enlaceUltimo.appendChild(document.createTextNode("Directores"));
-	enlaceUltimo.setAttribute("class","btn btn-link btn-sm");
-	enlaceUltimo.addEventListener("click",showDirectors);
-	ultimo.appendChild(enlaceUltimo);
-	migas.appendChild(ultimo);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode(this.value));
-	migas.appendChild(actual);
+	//Actualiza las migas de pan
+	breadcrumb("Director","Directores",this.value);
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -707,7 +678,7 @@ function showDirector(){
 			nacimiento.appendChild(document.createTextNode("Fecha de nacimiento:"));
 			var nacimientoDescript = document.createElement("p");
 			nacimientoDescript.setAttribute("class","card-text cajaDescripcion");
-			nacimientoDescript.appendChild(document.createTextNode(director.value.born));			
+			nacimientoDescript.appendChild(document.createTextNode(director.value.born.toDateString()));			
 			
 			//Se crea la estructura de las tarjetas con appendChild
 			contenido.appendChild(tarjeta);
@@ -756,24 +727,8 @@ function showProductions(){
 	//El valor this.value lo recoge del valor del boton que hayamos pulsado
 	tituloContenido.innerHTML = this.value;
 
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode(this.value));
-	migas.appendChild(actual);
+	//Actualiza las migas de pan
+	breadcrumb("Producciones",null,this.value);
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -868,38 +823,9 @@ function showProduction(){
 	//Oculta el  el titulo de la zona
 	var tituloContenido = document.getElementById("tituloZona");
 	tituloContenido.style.display = "none";
-
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	//var ultimo = document.getElementById("breadcrumb").lastChild;
-
-	//Selecciona la zona de las migas de pan, borra las anteriores y añade las nuevas
-	var migas = document.getElementById("breadcrumb");
-	while (migas.firstChild) {
-		migas.removeChild(migas.firstChild);
-	}
-	var inicio = document.createElement("li");
-	var enlaceInicio = document.createElement("button");
-	inicio.setAttribute("class","breadcrumb-item ");
-	enlaceInicio.appendChild(document.createTextNode("Inicio"));
-	enlaceInicio.setAttribute("class","btn btn-link btn-sm");
-	enlaceInicio.addEventListener("click",showHomePage);
-	inicio.appendChild(enlaceInicio);
-	migas.appendChild(inicio);
-	var ultimo = document.createElement("li");
-	var enlaceUltimo = document.createElement("button");
-	ultimo.setAttribute("class","breadcrumb-item ");
-	enlaceUltimo.appendChild(document.createTextNode(tituloContenido.textContent));
-	enlaceUltimo.setAttribute("class","btn btn-link btn-sm");
-	enlaceUltimo.setAttribute("value",tituloContenido.textContent);
-	enlaceUltimo.addEventListener("click",showProductions);
-	ultimo.appendChild(enlaceUltimo);
-	migas.appendChild(ultimo);
-	var actual = document.createElement("li");
-	actual.setAttribute("class","breadcrumb-item btn btn-sm active");
-	actual.setAttribute("aria-current","page");
-	actual.appendChild(document.createTextNode(this.value));
-	migas.appendChild(actual);
+	
+	//Se actualizan las migas de pan
+	breadcrumb("Produccion",tituloContenido.textContent, this.value);
 
 	//Se selecciona la zona donde va a ir el nuevo contenido
 	var contenido = document.getElementById("tarjetasZona");
@@ -948,7 +874,7 @@ function showProduction(){
 			publication.appendChild(document.createTextNode("Fecha de publicacion:"));
 			var publicationDescript = document.createElement("p");
 			publicationDescript.setAttribute("class","card-text cajaDescripcion");
-			publicationDescript.appendChild(document.createTextNode(produccion.value.publication));
+			publicationDescript.appendChild(document.createTextNode(produccion.value.publication.toDateString()));
 			/* ESTAS LINEAS SON PARA LA SIPNOSIS DE LA PRODUCCION */
 			var synopsis = document.createElement("p");
 			synopsis.setAttribute("class","card-text cajaTitulo");
@@ -1053,25 +979,41 @@ function showProduction(){
 	
 }//Fin de showProduction
 
-var ventana;
+//http://www.forosdelweb.com/f13/cerrar-todas-las-ventanas-abiertas-con-windows-open-548825/
+//https://informaticapc.com/tutorial-javascript/ventana-del-navegador-web.php
+var arrayVentanas = new Array();
 //Abre una nueva ventana
 function abrirVentana(){
-	if (ventana && !ventana.closed){
-		//Si la ventana no esta cerrada y esta creada le da el foco
-		ventana.focus();
+	var ventanaNueva;
+	if (ventanaNueva && !ventanaNueva.closed && ventanaNueva == this.value){
+		//Si la ventana no esta cerrada, esta creada y ya tiene ese nombre le da el foco
+		ventanaNueva.focus();
 	} else {
-		//Abre una ventana nueva e introduce los datos en ella
-		ventana = window.open("pages/Resource.html",this.value,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=480");
+		//Abre una ventana nueva, el name de la ventana es el value del boton
+		ventanaNueva = window.open("pages/Resource.html",this.value,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=480");
+		arrayVentanas.push(ventanaNueva);
 	}
 }//FIn de abrir ventana
 
 //Muestra los recursos relacionados con una producción en una nueva ventana
 //Esta funcion se ejecuta al cargar la ventana
 function showResource(){
-	//Selecciona la zona de la ventana nueva
-	var contenidoVentana = ventana.document.getElementById("contenidoZona");
+	//Se recoge el titulo de la produccion
 	var tituloProduccion = document.getElementById("titulo");
 	
+	//Se recorre el array de ventanas 
+	for (let index = 0; index < arrayVentanas.length; index++) {
+		//Si el titulo es igual a la ventana que haya en el array
+		if (arrayVentanas[index].name == tituloProduccion.textContent) {
+			//Selecciona la zona de la ventana nueva
+			var ventana = arrayVentanas[index];
+		}
+	}
+
+	var contenidoVentana = ventana.document.getElementById("contenidoZona");
+	//Cambia el titulo de la ventana
+	ventana.document.title = "Recursos de " + tituloProduccion.textContent;
+
 	var encontrado = false;
 	var producciones = video.productions;
 	var produccion = producciones.next();
@@ -1122,7 +1064,7 @@ function showResource(){
 				}
 			}else{
 				//Si es una serie y tiene temporadas las muestra
-				if(produccion.value.season != null){
+				if(produccion.value.seasons != null){
 					
 					var season = document.createElement("p");
 					season.setAttribute("class","cajaTitulo");
