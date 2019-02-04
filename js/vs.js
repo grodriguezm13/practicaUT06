@@ -979,8 +979,6 @@ function showProduction(){
 	
 }//Fin de showProduction
 
-//http://www.forosdelweb.com/f13/cerrar-todas-las-ventanas-abiertas-con-windows-open-548825/
-//https://informaticapc.com/tutorial-javascript/ventana-del-navegador-web.php
 var arrayVentanas = new Array();
 //Abre una nueva ventana
 function abrirVentana(){
@@ -990,10 +988,20 @@ function abrirVentana(){
 		ventanaNueva.focus();
 	} else {
 		//Abre una ventana nueva, el name de la ventana es el value del boton
-		ventanaNueva = window.open("pages/Resource.html",this.value,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=480");
+		ventanaNueva = window.open("pages/Resource.html",this.value,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=670");
 		arrayVentanas.push(ventanaNueva);
 	}
 }//FIn de abrir ventana
+
+//Cierra las ventanas abiertas
+function cerrarVentanas(){
+	for (let index = 0; index < arrayVentanas.length; index++) {
+		//Si la ventana no esta cerrada la cierra
+		if (!arrayVentanas[index].closed) {
+			arrayVentanas[index].close();
+		}
+	}
+}//FIn de cerrarVentanas
 
 //Muestra los recursos relacionados con una producción en una nueva ventana
 //Esta funcion se ejecuta al cargar la ventana
