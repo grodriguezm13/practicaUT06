@@ -347,7 +347,7 @@ function showHomePage(){
 //Carga el menu lateral con las categorias
 function categoriesMenuPopulate(){
 	//Selecciona el menu lateral donde van a ir las categorias del sistema
-	var menu = document.getElementById("columnaCategorias").getElementsByClassName("list-group")[0];
+	var menu = document.getElementById("menuCategorias").getElementsByClassName("nav")[0];
 
 	//Con un iterador recorremos todas las categorias del sistema
 	//Y creamos el menu lateral mientras haya categorias
@@ -357,12 +357,15 @@ function categoriesMenuPopulate(){
 	var categoria = categorias.next();
 	while (categoria.done !== true){
 		//Crea las opciones del menu lateral
-		var enlace = document.createElement("button");
-		enlace.setAttribute("class","list-group-item btn btn-primary");
-		enlace.setAttribute("value",categoria.value.name);
-		enlace.appendChild(document.createTextNode(categoria.value.name));
-		enlace.addEventListener("click", showProductions);
-		menu.appendChild(enlace);
+		var li = document.createElement("li");
+		li.setAttribute("class","nav-item");
+		var botonEnlace = document.createElement("button");
+		botonEnlace.setAttribute("class","nav-link btn btn-outline-primary btn-lg btn-block");
+		botonEnlace.setAttribute("value",categoria.value.name);
+		botonEnlace.appendChild(document.createTextNode(categoria.value.name));
+		botonEnlace.addEventListener("click", showProductions);
+		li.appendChild(botonEnlace);
+		menu.appendChild(li);
 		
         //Pasa a la siguiente categoria
 		categoria = categorias.next();
@@ -864,7 +867,7 @@ function showProduction(){
 			/* ESTA LINEA CAMBIA EL ENLACE DE LA FOTO DE LAS TARJETAS*/ 
 			//imagen.setAttribute("src","img/"+production.value.title+".jpg");
 			imagen.setAttribute("src","img/Portada.jpg");
-			imagen.setAttribute("alt",produccion.value.title);
+			//imagen.setAttribute("alt",produccion.value.title);
 			/* ESTAS LINEAS SON PARA LA NACIONALIDAD DE LA PRODUCCION */
 			var nationality = document.createElement("p");
 			nationality.setAttribute("class","card-text cajaTitulo");

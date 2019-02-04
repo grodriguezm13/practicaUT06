@@ -53,15 +53,23 @@
     <div class="row">
       <!-- COLUMNA DEL MENU LAS CATEGORIAS-->
       <div id="columnaCategorias" class="col-md-3">
-          <h1 class="my-4">Categorias</h1>
-          <div class="list-group">
-            <!-- AQUI SE MUESTRA EL NOMBRE DE LAS CATEGORIAS DEL SISTEMA -->
-          </div>
-          <hr>
-          <button id="btnActores" type="button" class="list-group-item btn btn-primary btn-lg btn-block">Actores</button>
-          <hr>
-          <button id="btnDirectores" type="button" class="list-group-item btn btn-primary btn-lg btn-block">Directores</button>
-
+          <h1 class="my-4 text-center">Menu</h1>
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <button id="btnCategorias" type="button" data-toggle="collapse" href="#menuCategorias" class="list-group-item btn btn-primary btn-lg btn-block">Categorias +</button>
+              <div id="menuCategorias" class="collapse">
+                <ul class="nav flex-column mx-2">
+                  <!-- AQUI SE MUESTRAN TODAS LAS CATEGORIAS DEL SISTEMA -->
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button id="btnActores" type="button" class="list-group-item btn btn-primary btn-lg btn-block">Actores</button>
+            </li>
+            <li class="nav-item">
+              <button id="btnDirectores" type="button" class="list-group-item btn btn-primary btn-lg btn-block">Directores</button>
+            </li>
+          </ul>
       </div>
       <!-- COLUMNA DEL CONTENIDO PRINCIPAL-->
       <div id="columnaContenido" class="col-md-9">

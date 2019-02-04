@@ -10,6 +10,9 @@ Guillermo Rodríguez Moraga
 
 ## Versiones
 
+Version 0.2
+- Se han realizado cambios en la interfaz del menu lateral
+
 Version 0.1.4
 - Se han corregido errores al mostrar las temporadas de una serie
 

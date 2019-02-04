@@ -28,6 +28,10 @@ p.cajaDescripcion{
   text-indent: 10%;
 }
 
-button.list-group-item{
+button.list-group-item, button.nav-link{
   color: #007bff;
+}
+
+ button.nav-link:hover{
+  background-color: #2d93fff1;
 }
