@@ -203,7 +203,11 @@ function initPopulate(){
 		video.assignActor(persona5,movie5,"Ciudadano",false);
 		video.assignActor(persona5,movie6,"Ciudadano",false);
 		video.assignActor(persona7,movie5,"Ciudadano",false);
-		video.assignActor(persona7,movie6,"Ciudadano",false);	
+		video.assignActor(persona7,movie6,"Ciudadano",false);
+		video.assignActor(persona1,serie,"Mago Invisible",true);
+		video.assignActor(persona1,serie1,"Extra",false);
+		video.assignActor(persona1,serie2,"Barry Allen/The Flash",true);	
+		video.assignActor(persona1,serie3,"Ciudadano",false);
 	} catch (error) {
 		console.log("" + error);
 	}
@@ -1070,17 +1074,6 @@ function showResource(){
 					locationsDescript.setAttribute("class","cajaDescripcion");
 					locationsDescript.appendChild(document.createTextNode(produccion.value.locations));
 				}
-			}else{
-				//Si es una serie y tiene temporadas las muestra
-				if(produccion.value.seasons != null){
-					
-					var season = document.createElement("p");
-					season.setAttribute("class","cajaTitulo");
-					season.appendChild(document.createTextNode("Temporadas:"));
-					var seasonDescrip = document.createElement("p");
-					seasonDescrip.setAttribute("class","cajaDescripcion");
-					seasonDescrip.appendChild(document.createTextNode(produccion.value.seasons));
-				}
 			}//Fin del if del instanceof
 
 			//Pinta todo en la nueva ventana
@@ -1100,7 +1093,19 @@ function showResource(){
 				contenidoVentana.appendChild(locations);
 				contenidoVentana.appendChild(locationsDescript);
 			}
-				
+			if(produccion.value.season != null){
+				//Si tiene temporadas las muestra
+				for (let index = 0; index < produccion.value.season.length; index++) {
+					var season = document.createElement("p");
+					season.setAttribute("class","cajaTitulo");
+					season.appendChild(document.createTextNode("Temporada "+(index+1)+":"));
+					var seasonDescrip = document.createElement("p");
+					seasonDescrip.setAttribute("class","cajaDescripcion");
+					seasonDescrip.appendChild(document.createTextNode(produccion.value.season[index].episodes));
+					contenidoVentana.appendChild(season);
+					contenidoVentana.appendChild(seasonDescrip);	
+				}//Fin del for
+			}//Fin del if de season	
 		}//Fin del if
 		//Pasa a la siguiente produccion
 		produccion = producciones.next();

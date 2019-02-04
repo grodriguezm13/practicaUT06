@@ -10,6 +10,9 @@ Guillermo Rodríguez Moraga
 
 ## Versiones
 
+Version 0.1.4
+- Se han corregido errores al mostrar las temporadas de una serie
+
 Version 0.1.3.1
 - Se ha creado la funcion cerrarVentanas que cierra las ventanas activas de las producciones
 - Se ha añadido un boton en el menu horizontal para cerrar las ventanas
