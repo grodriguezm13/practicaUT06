@@ -10,6 +10,12 @@ Guillermo Rodríguez Moraga
 
 ## Versiones
 
+Version 0.2.2
+- Mejoras a la hora de gestionar las ventanas
+
+Version 0.2.1
+- Se han corregido errores a la hora de mostrar los recursos de una produccion que ya estaba abierta
+
 Version 0.2
 - Se han realizado cambios en la interfaz del menu lateral
 

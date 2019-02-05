@@ -23,15 +23,17 @@
   <!-- COMIENZO CONTENIDO PRINCIPAL -->
   <main class="container">
       <h1 id="tituloZona"></h1>
-      <div id="contenidoZona">
-        <!-- AQUI SE MUESTRA TODA LA INFORMACION DEL RECURSO -->       
+      <div id="contenidoZona">       
       </div>
       <button class="btn btn-primary btn-lg" onclick="window.close()">Cerrar</button>
   </main>
   <!-- FIN CONTENIDO PRINCIPAL -->
   <script>
-    //Llama a la funcion showResource de la ventana padre
-    window.onload = window.opener.showResource;
+    function cargaDatos(){
+      //llama a la funcion de showResource de la ventana
+      window.opener.showResource();
+    }
+    window.onload = cargaDatos;
   </script>
   </body>
 </html>

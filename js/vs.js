@@ -309,10 +309,10 @@ function showHomePage(){
 		imagen.setAttribute("alt",categoria.value.name);
 		var buttonTitle = document.createElement("button");
 		//id que sirve para recoger la categoria pulsada en el evento
-		buttonTitle.setAttribute("id","botonCategoria");
+		buttonTitle.setAttribute("id","boton"+categoria.value.name);
 		buttonTitle.setAttribute("type","button");
 		buttonTitle.setAttribute("value",categoria.value.name);
-		buttonTitle.setAttribute("class","btn btn-link");
+		buttonTitle.setAttribute("class","btn btn-link btn-block");
 		buttonTitle.appendChild(document.createTextNode(categoria.value.name));	
 		var descripCategory = document.createElement("p");
 		descripCategory.setAttribute("class","card-text");
@@ -989,16 +989,27 @@ function showProduction(){
 var arrayVentanas = new Array();
 //Abre una nueva ventana
 function abrirVentana(){
-	var ventanaNueva;
-	if (ventanaNueva && !ventanaNueva.closed && ventanaNueva == this.value){
-		//Si la ventana no esta cerrada, esta creada y ya tiene ese nombre le da el foco
-		ventanaNueva.focus();
-	} else {
-		//Abre una ventana nueva, el name de la ventana es el value del boton
-		ventanaNueva = window.open("pages/Resource.html",this.value,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=670");
-		arrayVentanas.push(ventanaNueva);
-	}
+	//Si es la primera vez que se ejecuta la funcion crea directamente la ventana
+	if(arrayVentanas[0] == undefined){
+		crearVentana(this.value);
+	}else{
+		for (let index = 0; index < arrayVentanas.length; index++) {
+			if (arrayVentanas[index] && !arrayVentanas[index].closed && arrayVentanas[index] == this.value){
+				//Si la ventana no esta cerrada, esta creada y ya tiene ese nombre le da el foco
+				arrayVentanas[index].focus();
+			} else {
+				//Llama a la funcion crearVentana, el name de la ventana es el value del boton
+				crearVentana(this.value);
+			}//FIN del if	
+		}//Fin del for
+	}//Fin del if
 }//FIn de abrir ventana
+
+//Crea una ventana
+function crearVentana(nombre){
+	var ventanaNueva = window.open("pages/Resource.html",nombre,"toolbar=yes,scrollbars=yes,resizable=yes,width=640,height=670");
+	arrayVentanas.push(ventanaNueva);
+}//FIn de crearVentana
 
 //Cierra las ventanas abiertas
 function cerrarVentanas(){
