@@ -990,18 +990,23 @@ var arrayVentanas = new Array();
 //Abre una nueva ventana
 function abrirVentana(){
 	//Si es la primera vez que se ejecuta la funcion crea directamente la ventana
+	let index = 0;
+	let encontrada = false;
 	if(arrayVentanas[0] == undefined){
 		crearVentana(this.value);
 	}else{
-		for (let index = 0; index < arrayVentanas.length; index++) {
+		while ((index < arrayVentanas.length) || encontrada) {
 			if (arrayVentanas[index] && !arrayVentanas[index].closed && arrayVentanas[index] == this.value){
-				//Si la ventana no esta cerrada, esta creada y ya tiene ese nombre le da el foco
-				arrayVentanas[index].focus();
-			} else {
-				//Llama a la funcion crearVentana, el name de la ventana es el value del boton
-				crearVentana(this.value);
-			}//FIN del if	
-		}//Fin del for
+				//Si la ventana no esta cerrada, esta creada y ya tiene ese nombre pone la variable a true
+				encontrada = true;
+			}
+			index++;
+		}//Fin del while
+		if (encontrada) {
+			arrayVentanas[index].focus();
+		}else{
+			crearVentana(this.value);
+		}
 	}//Fin del if
 }//FIn de abrir ventana
 
