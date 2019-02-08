@@ -989,9 +989,9 @@ function showProduction(){
 var arrayVentanas = new Array();
 //Abre una nueva ventana
 function abrirVentana(){
+	var index = 0;
+	var encontrada = false;
 	//Si es la primera vez que se ejecuta la funcion crea directamente la ventana
-	let index = 0;
-	let encontrada = false;
 	if(arrayVentanas[0] == undefined){
 		crearVentana(this.value);
 	}else{
@@ -1021,8 +1021,9 @@ function cerrarVentanas(){
 	for (let index = 0; index < arrayVentanas.length; index++) {
 		//Si la ventana no esta cerrada la cierra
 		if (!arrayVentanas[index].closed) {
-			arrayVentanas[index].close();
+			arrayVentanas[index].close();	
 		}
+		arrayVentanas.splice(index, 1);
 	}
 }//FIn de cerrarVentanas
 
